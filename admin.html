@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Kopi Tarling</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23170f0a%22/><path d=%22M18 28h28v10a14 14 0 0 1-14 14 14 14 0 0 1-14-14z%22 fill=%22none%22 stroke=%22%23e7a33e%22 stroke-width=%223%22/></svg>">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+
+<!-- ============ LOGIN ============ -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="32" r="31" fill="#1c130c" stroke="rgba(246,238,221,.12)"/>
+        <path d="M20 27h24v9a12 12 0 0 1-12 12 12 12 0 0 1-12-12z" stroke="#e7a33e" stroke-width="2.6" fill="none"/>
+        <path d="M44 29h3.4a4.6 4.6 0 0 1 0 9.2H44" stroke="#e7a33e" stroke-width="2.6" fill="none"/>
+      </svg>
+      <span class="brand-word">Kopi <span>Tarling</span></span>
+    </a>
+    <p class="login-sub">Dashboard admin kedai — kelola menu &amp; info pembayaran</p>
+
+    <div class="login-error" id="loginError">Username atau kata sandi salah. Coba lagi ya.</div>
+
+    <form id="loginForm">
+      <div class="field">
+        <label for="loginUser">Username</label>
+        <input type="text" id="loginUser" autocomplete="username" required>
+      </div>
+      <div class="field">
+        <label for="loginPass">Kata Sandi</label>
+        <input type="password" id="loginPass" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Masuk Dashboard</button>
+    </form>
+
+    <div class="login-hint">
+      Default: <strong>admin</strong> / <strong>kopitarling123</strong><br>
+      Segera ganti kata sandi lewat panel Pengaturan setelah masuk.
+    </div>
+  </div>
+</div>
+
+<!-- ============ DASHBOARD ============ -->
+<div class="admin-shell" id="dashboardScreen" hidden>
+
+  <aside class="admin-sidebar" id="adminSidebar">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="32" r="31" fill="#1c130c" stroke="rgba(246,238,221,.12)"/>
+        <path d="M20 27h24v9a12 12 0 0 1-12 12 12 12 0 0 1-12-12z" stroke="#e7a33e" stroke-width="2.6" fill="none"/>
+        <path d="M44 29h3.4a4.6 4.6 0 0 1 0 9.2H44" stroke="#e7a33e" stroke-width="2.6" fill="none"/>
+      </svg>
+      <span class="brand-word">Kopi <span>Tarling</span></span>
+    </a>
+
+    <nav class="admin-nav">
+      <button type="button" class="is-active" data-panel="panelDashboard">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="8" height="8" rx="2" stroke="currentColor" stroke-width="2"/><rect x="13" y="3" width="8" height="8" rx="2" stroke="currentColor" stroke-width="2"/><rect x="3" y="13" width="8" height="8" rx="2" stroke="currentColor" stroke-width="2"/><rect x="13" y="13" width="8" height="8" rx="2" stroke="currentColor" stroke-width="2"/></svg>
+        Dashboard
+      </button>
+      <button type="button" data-panel="panelProduk">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 7L12 3 4 7v10l8 4 8-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M4 7l8 4 8-4M12 11v10" stroke="currentColor" stroke-width="2"/></svg>
+        Produk
+      </button>
+      <button type="button" data-panel="panelSettings">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.6 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.6 1z" stroke="currentColor" stroke-width="1.6"/></svg>
+        Pengaturan Bayar
+      </button>
+    </nav>
+
+    <div class="sidebar-foot">
+      <a href="index.html" target="_blank">↗ Lihat Website</a>
+      <a href="#" id="logoutBtn">Keluar</a>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <button type="button" class="mobile-sidebar-toggle" id="mobileSidebarToggle">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      Menu
+    </button>
+
+    <!-- ---- Dashboard ---- -->
+    <section class="admin-panel is-active" id="panelDashboard">
+      <div class="admin-topbar">
+        <div>
+          <h1>Ringkasan Kedai</h1>
+          <p>Selamat datang kembali! Ini gambaran singkat menu Kopi Tarling.</p>
+        </div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><span>Total Produk</span><strong id="statTotal">0</strong></div>
+        <div class="stat-card"><span>Produk Tersedia</span><strong id="statAvailable">0</strong></div>
+        <div class="stat-card"><span>Kategori</span><strong id="statCategories">0</strong></div>
+        <div class="stat-card"><span>Harga Rata-rata</span><strong id="statAvgPrice">Rp0</strong></div>
+      </div>
+      <div class="panel-card">
+        <h3>Langkah Cepat</h3>
+        <p>Kelola menu dan info pembayaran kedai dari sini.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <button type="button" class="btn btn-primary" data-goto="panelProduk">+ Tambah Produk Baru</button>
+          <button type="button" class="btn btn-dark" data-goto="panelSettings">Ubah Info Pembayaran</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- Produk (CRUD) ---- -->
+    <section class="admin-panel" id="panelProduk">
+      <div class="admin-topbar">
+        <div>
+          <h1>Kelola Produk</h1>
+          <p>Tambah, ubah, atau hapus menu yang tampil di website.</p>
+        </div>
+        <button type="button" class="btn btn-primary" id="addProductBtn">+ Tambah Produk</button>
+      </div>
+
+      <div class="panel-card">
+        <div class="table-toolbar">
+          <input type="text" id="searchProduct" placeholder="Cari produk..." style="max-width:260px;background:var(--espresso-950);border:1px solid rgba(246,238,221,.14);border-radius:10px;padding:10px 14px;color:var(--ink-050);font-family:var(--font-body);font-size:.86rem;">
+        </div>
+        <div class="table-wrap">
+          <table class="prod-table">
+            <thead>
+              <tr><th>Produk</th><th>Kategori</th><th>Harga</th><th>Status</th><th></th></tr>
+            </thead>
+            <tbody id="productTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- Pengaturan pembayaran ---- -->
+    <section class="admin-panel" id="panelSettings">
+      <div class="admin-topbar">
+        <div>
+          <h1>Pengaturan Pembayaran</h1>
+          <p>Info ini otomatis tampil di bagian Pemesanan &amp; Footer website.</p>
+        </div>
+      </div>
+
+      <form class="panel-card" id="settingsForm">
+        <h3>Metode Pembayaran</h3>
+        <p>Nomor DANA, rekening BRI, dan kontak WhatsApp untuk pemesanan.</p>
+        <div class="settings-grid">
+          <div class="field">
+            <label for="setDana">Nomor DANA</label>
+            <input type="text" id="setDana" required>
+          </div>
+          <div class="field">
+            <label for="setWa">Nomor WhatsApp (format 62xxxx)</label>
+            <input type="text" id="setWa" required>
+          </div>
+          <div class="field">
+            <label for="setBri">Nomor Rekening BRI</label>
+            <input type="text" id="setBri" required>
+          </div>
+          <div class="field">
+            <label for="setBriName">Nama Pemilik Rekening</label>
+            <input type="text" id="setBriName" required>
+          </div>
+        </div>
+
+        <h3 style="margin-top:8px;">Info Kontak &amp; Lokasi</h3>
+        <p>Ditampilkan di bagian Lokasi dan Footer.</p>
+        <div class="settings-grid">
+          <div class="field">
+            <label for="setAddress">Alamat</label>
+            <input type="text" id="setAddress" required>
+          </div>
+          <div class="field">
+            <label for="setIg">Link Instagram</label>
+            <input type="text" id="setIg" required>
+          </div>
+        </div>
+
+        <div class="settings-save-bar">
+          <span class="save-msg" id="settingsSaveMsg">Tersimpan ✓</span>
+          <button type="submit" class="btn btn-primary">Simpan Pengaturan</button>
+        </div>
+      </form>
+
+      <form class="panel-card" id="passwordForm">
+        <h3>Ubah Kata Sandi Admin</h3>
+        <p>Segera ganti dari kata sandi bawaan untuk keamanan.</p>
+        <div class="settings-grid">
+          <div class="field">
+            <label for="newUser">Username Baru</label>
+            <input type="text" id="newUser" required>
+          </div>
+          <div class="field">
+            <label for="newPass">Kata Sandi Baru</label>
+            <input type="password" id="newPass" required minlength="6">
+          </div>
+        </div>
+        <div class="settings-save-bar">
+          <span class="save-msg" id="passwordSaveMsg">Tersimpan ✓</span>
+          <button type="submit" class="btn btn-dark">Ubah Kata Sandi</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</div>
+
+<!-- ============ MODAL PRODUK ============ -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="modalTitle">Tambah Produk</h3>
+      <button type="button" class="modal-close" id="modalCloseBtn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <form id="productForm">
+      <input type="hidden" id="prodId">
+      <div class="field">
+        <label for="prodName">Nama Produk</label>
+        <input type="text" id="prodName" required>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="prodCategory">Kategori</label>
+          <input type="text" id="prodCategory" list="categoryList" required placeholder="mis. Kopi Susu">
+          <datalist id="categoryList"></datalist>
+        </div>
+        <div class="field">
+          <label for="prodPrice">Harga (Rp)</label>
+          <input type="number" id="prodPrice" min="0" step="500" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="prodDesc">Deskripsi Singkat</label>
+        <textarea id="prodDesc" maxlength="160" placeholder="Jelaskan rasa/keunikan menu ini..."></textarea>
+      </div>
+      <div class="field">
+        <label>Foto Produk</label>
+        <div class="image-upload">
+          <div class="image-preview" id="imagePreview">Belum ada foto</div>
+          <div style="flex:1;">
+            <input type="file" id="prodImage" accept="image/*">
+            <p class="field-hint">Opsional. Kalau kosong, ikon cangkir kopi akan dipakai. Maks ±600KB.</p>
+          </div>
+        </div>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="prodAvailable" checked>
+        <label for="prodAvailable" style="margin:0;">Tampilkan produk ini di website</label>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="modalCancelBtn">Batal</button>
+        <button type="submit" class="btn btn-primary">Simpan Produk</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="admin.js"></script>
+</body>
+</html>
